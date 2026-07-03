@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org" >
+<suite name="TestSuite">
+    <test name="TestExecution">
+        <classes>
+            <class name="com.practicejava.tests.TestClass1" />
+        </classes>
+    </test>
+</suite>
