@@ -9,23 +9,23 @@ import com.practicejava.framework.FrameworkConstants;
 
 public class BaseTest {
 
-    protected WebDriver driver;
-    private DriverFactory factory;
+    protected static WebDriver driver;
+    // private static DriverFactory factory;
 
     @BeforeMethod
-    public void setUp() {
-        System.out.println("Before Test");
-
-        factory = new DriverFactory();
-        driver = factory.getDriver();
-        driver.get(FrameworkConstants.APP_URL);
+    public static void setUpDriver() {
+        driver = DriverFactory.getDriver();
+        if (driver != null) {
+            driver.get(FrameworkConstants.APP_URL);
+        } else {
+            throw new RuntimeException("Driver failed to initialize!");
+        }
 
     }
 
     @AfterMethod
     public void tearDown() {
-        if (driver != null)
-            driver.quit();
+        DriverFactory.quitDriver();
         System.out.println("Test Case Completed");
     }
 }

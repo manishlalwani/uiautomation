@@ -21,8 +21,8 @@ public class HomePageTest extends BaseTest {
     public void verifySearchButtonTest() throws InterruptedException {
 
         HomePage homePage = new HomePage(driver);
-        String title = homePage.clickSearchButton();
-        Assert.assertEquals(title, "Search Button Clicked");
+        String title = homePage.getAccountButtonText();
+        Assert.assertEquals(title, "Account");
 
     }
 

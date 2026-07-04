@@ -23,18 +23,7 @@ public class BasePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(FrameworkConstants.DURATION_TIME));
     }
 
-    protected void write(WebElement element, String text) {
-        wait.until(ExpectedConditions.visibilityOf(element));
-        element.clear();
-        element.sendKeys(text);
-        logger.info("Writing Data on Element ",element);
-    }
-
-    protected void click(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-        element.click();
-        logger.info("Clicking on Element ",element);
-    }
+    
 
     protected void write(By locator, String text) {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -48,6 +37,21 @@ public class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
         logger.info("Clicking on Element ",element);
+    }
+
+   
+
+    protected WebElement find(By locator) {
+        logger.debug("Finding element: {}", locator);
+    
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(locator)
+        );
+    }
+    
+    protected String getText(By locator) {
+        logger.info("Getting text from: {}", locator);
+        return find(locator).getText();
     }
 
 }

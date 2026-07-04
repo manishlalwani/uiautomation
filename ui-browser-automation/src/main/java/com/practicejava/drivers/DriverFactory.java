@@ -5,21 +5,30 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class DriverFactory {
-    private WebDriver driver;
+    private static WebDriver driver;
 
-    public DriverFactory() {
-        System.setProperty("webdriver.chrome.silentOutput", "true");
-        java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(java.util.logging.Level.SEVERE);
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--start-maximized");
-        this.driver = new ChromeDriver(chromeOptions);
-    }
+    // Private constructor to prevent unnecessary instantiation
+    private DriverFactory() {}
 
-    public WebDriver getDriver() {
+    public static WebDriver getDriver() {
+        if (driver == null) {
+            // Setup logging suppression
+            System.setProperty("webdriver.chrome.silentOutput", "true");
+            
+            // Configure Options
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--start-maximized");
+            
+            // Initialize Driver
+            driver = new ChromeDriver(chromeOptions);
+        }
         return driver;
     }
 
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null; // Important: reset to null so it can be re-initialized if needed
+        }
     }
 }
